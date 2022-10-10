@@ -11,7 +11,6 @@ namespace BookManagerApi.Services
             _context = context;
         }
 
-
         public List<Book> GetAllBooks()
         {
             var books = _context.Books.ToList();
@@ -29,7 +28,7 @@ namespace BookManagerApi.Services
         {
             var existingBookFound = FindBookById(id);
 
-            existingBookFound.Title = book.Title;
+            existingBookFound.Title = book.Title;//what if existingBookFound is null?
             existingBookFound.Description = book.Description;
             existingBookFound.Author = book.Author;
             existingBookFound.Genre = book.Genre;
@@ -47,6 +46,13 @@ namespace BookManagerApi.Services
         public bool BookExists(long id)
         {
             return _context.Books.Any(b => b.Id == id);
+        }
+
+        public bool Delete(Book book)
+        {
+            _context.Remove(book);//what if book is null
+            _context.SaveChanges();
+            return true;
         }
     }
 }
