@@ -54,7 +54,7 @@ public class BookManagerControllerTests
     }
 
     [Test]
-    public void GetBookById_By_Wrong_Id_Returns_NotFound()
+    public void GetBookById_Wrong_Id_Returns_NotFound()
     {
         //Arrange
         var testBookFound = GetTestBooks().FirstOrDefault();
