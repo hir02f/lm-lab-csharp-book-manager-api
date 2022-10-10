@@ -54,6 +54,20 @@ public class BookManagerControllerTests
     }
 
     [Test]
+    public void GetBookById_By_Wrong_Id_Returns_NotFound()
+    {
+        //Arrange
+        var testBookFound = GetTestBooks().FirstOrDefault();
+        _mockBookManagementService.Setup(b => b.FindBookById(1)).Returns(testBookFound);
+
+        //Act
+        var result = _controller.GetBookById(2);
+
+        //Assert
+        //result.Should().BeOfType(typeof(NotFoundResult)); // it's some Microsoft.AspNetCore.Mvc.ActionResult class that is returned
+    }
+
+    [Test]
     public void UpdateBookById_Updates_Correct_Book()
     {
         //Arrange

@@ -27,7 +27,15 @@ namespace BookManagerApi.Controllers
         public ActionResult<Book> GetBookById(long id)
         {
             var book = _bookManagementService.FindBookById(id);
-            return book;
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return book;
+            }
         }
 
         // PUT: api/v1/book/5
