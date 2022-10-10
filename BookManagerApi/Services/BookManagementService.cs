@@ -28,12 +28,15 @@ namespace BookManagerApi.Services
         {
             var existingBookFound = FindBookById(id);
 
-            existingBookFound.Title = book.Title;//what if existingBookFound is null?
-            existingBookFound.Description = book.Description;
-            existingBookFound.Author = book.Author;
-            existingBookFound.Genre = book.Genre;
+            if (existingBookFound != null)
+            {
+                existingBookFound.Title = book.Title;
+                existingBookFound.Description = book.Description;
+                existingBookFound.Author = book.Author;
+                existingBookFound.Genre = book.Genre; // Need to check if Genre is valid
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
             return book;
         }
 
@@ -50,7 +53,7 @@ namespace BookManagerApi.Services
 
         public bool Delete(Book book)
         {
-            _context.Remove(book);//what if book is null
+            _context.Remove(book);
             _context.SaveChanges();
             return true;
         }

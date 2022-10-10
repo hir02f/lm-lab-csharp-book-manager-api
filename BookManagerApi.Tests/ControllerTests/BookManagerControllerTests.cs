@@ -94,15 +94,25 @@ public class BookManagerControllerTests
         var testBookFound = GetTestBooks().FirstOrDefault();
         _mockBookManagementService.Setup(b => b.FindBookById(1)).Returns(testBookFound);
 
-        // Pre-check    
-        var result = _controller.GetBookById(1); 
-        result.Value.Should().NotBeNull();
-
         //Act
         var resultDelete = _controller.DeleteBookById(1);
 
         //Assert
         resultDelete.Should().BeOfType(typeof(NoContentResult));
+    }
+
+    [Test]
+    public void DeleteBook_When_Book_Not_Found_Gets_Error_NotFound()
+    {
+        //Arrange
+        var testBookFound = GetTestBooks().FirstOrDefault();
+        _mockBookManagementService.Setup(b => b.FindBookById(1)).Returns(testBookFound);
+
+        //Act
+        var resultDelete = _controller.DeleteBookById(2);
+
+        //Assert
+        resultDelete.Should().BeOfType(typeof(NotFoundResult));
     }
 
     private static List<Book> GetTestBooks()

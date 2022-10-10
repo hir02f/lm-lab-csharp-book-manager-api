@@ -35,8 +35,15 @@ namespace BookManagerApi.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBookById(long id, Book book)
         {
-            _bookManagementService.Update(id, book);
-            return NoContent();
+            if (book == null)
+            {
+                return NotFound(); // status code 404 returned , not as good as 204
+            }
+            else
+            {
+                _bookManagementService.Update(id, book);
+                return NoContent();
+            }
         }
 
         // POST: api/v1/book
@@ -52,9 +59,17 @@ namespace BookManagerApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteBookById(long id)
         {
-            var book = _bookManagementService.FindBookById(id); //what if null? check here or at service level?
-            _bookManagementService.Delete(book);
-            return NoContent();
+            var book = _bookManagementService.FindBookById(id);
+
+            if (book != null)
+            {
+                _bookManagementService.Delete(book);
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(); // status code 404 returned , not as good as 204
+            }
         }
     }
 }
