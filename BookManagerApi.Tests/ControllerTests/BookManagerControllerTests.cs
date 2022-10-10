@@ -99,7 +99,6 @@ public class BookManagerControllerTests
         result.Value.Should().NotBeNull();
 
         //Act
-       // _mockBookManagementService.Setup(b => b.Delete(testBookFound)).Returns(true);
         var resultDelete = _controller.DeleteBookById(1);
 
         //Assert
