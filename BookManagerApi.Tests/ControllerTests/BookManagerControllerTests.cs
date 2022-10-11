@@ -87,6 +87,26 @@ public class BookManagerControllerTests
     }
 
     [Test]
+    public void UpdateBookById_Using_Wrong_Id_Returns_NotFound()
+    {
+        //Arrange
+        long existingBookId = 4;
+        Book existingBookFound = GetTestBooks()
+            .FirstOrDefault(b => b.Id.Equals(existingBookId));
+
+        // var bookUpdates = new Book() { Id = 3, Title = "Book Three", Description = "I am updating this for Book Three", Author = "Person Three", Genre = Genre.Education };
+        var bookUpdates = new Book() { };
+
+        _mockBookManagementService.Setup(b => b.FindBookById(existingBookId)).Returns(existingBookFound);
+
+        //Act
+        var result = _controller.UpdateBookById(existingBookId, bookUpdates);
+
+        //Assert
+        //result.Should().BeOfType(typeof(NotFoundResult));
+    }
+
+    [Test]
     public void AddBook_Creates_A_Book()
     {
         //Arrange
