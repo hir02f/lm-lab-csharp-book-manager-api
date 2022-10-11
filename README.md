@@ -1,7 +1,9 @@
 # 📖 Minimalist Book Manager API - C# ASP.NET Core MVC Web API
 
 ## Introduction
-This is the starter repository for the Further APIs session. It provides some starter code to creating a Minimalist Book Manager API with synchronous API endpoints.
+Get the starter repository from  https://github.com/techreturners/lm-lab-csharp-book-manager-api. It provides some starter code to creating a Minimalist Book Manager API with synchronous API endpoints.
+
+This is the developed version, where the assignment is to add User Story 5, deleting a book given its ID, and add error handling.
 
 ### Pre-Requisites
 - C# / .NET 6
@@ -11,6 +13,9 @@ This is the starter repository for the Further APIs session. It provides some st
 - ASP.NET Core MVC 6 (Web API Project)
 - NUnit testing framework
 - Moq
+- Postman or Swagger
+- MySql if not using InMemory DB, and 
+- Entity Framework Mirgrations
 
 ### How to Get Started
 - Fork this repo to your Github and then clone the forked version of this repo.
@@ -23,13 +28,7 @@ This is the starter repository for the Further APIs session. It provides some st
 
 `dotnet test`
 
-### Tasks
-
-Here are some tasks for you to work on:
-
-📘 Discussion Task
-
-Explore the code and make notes on the following features and how it is being implemented in the code. We'd like you to note down what classes and methods are used and how the objects interact.
+### Original Version
 
 The features are:
 - Get All Books
@@ -37,15 +36,21 @@ The features are:
 - Add a Book
 - Update a Book
 
+### This Version
+
 📘 Task 1: Implement the following User Story with tests.
 
 `User Story: As a user, I want to use the Book Manager API to delete a book using its ID`
 
 
-📘 Extension Task: Oh no! 😭 We've only covered the happy paths in the solution, can you figure out a way
-to add in exception handling to the project? 
+📘 Extension Task: Added error handling when:
 
-- Clue 1: What if someone wants to add a book with an ID for a book that already exists? How do we handle this gracefully?
+- Find a book using an ID that doesn't yet exist. 
+- Delete a book using an ID that doesn't exist.
+- Update an book using an ID that doesn't exist.
 
-- Clue 2: What if someone wants to find a book by an ID that doesn't yet exist? 
-  How can we improve the API by handling errors gracefully and show a helpful message to the client?
+Still to do:
+- Adding a book with an ID for a book that already exists.
+- Adding a book for a genre that is not the following:  Thriller, Romance, Fantasy, Fiction, Education,
+
+  
