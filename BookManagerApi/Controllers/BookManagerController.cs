@@ -30,7 +30,7 @@ namespace BookManagerApi.Controllers
 
             if (book == null)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
             else
             {
@@ -45,7 +45,7 @@ namespace BookManagerApi.Controllers
         {
             if (book == null)
             {
-                return NotFound(); // status code 404 returned , not as good as 204
+                return new NotFoundResult(); 
             }
             else
             {
