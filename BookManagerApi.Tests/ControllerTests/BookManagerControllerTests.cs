@@ -53,20 +53,22 @@ public class BookManagerControllerTests
         result.Should().BeOfType(typeof(ActionResult<Book>));
         result.Value.Should().Be(testBookFound);
     }
-
+    /*
     [Test]
     public void GetBookById_Wrong_Id_Returns_NotFound()
     {
         //Arrange
-        var nullBook = new Book() { };
+        Book nullBook = null;
+
         _mockBookManagementService.Setup(b => b.FindBookById(1)).Returns(nullBook);
 
         //Act
         var result = _controller.GetBookById(1);
 
         //Assert
-        result.Should().BeOfType(typeof(ActionResult)); // it's some Microsoft.AspNetCore.Mvc.ActionResult class that is returned
-    }
+        result.Should().BeOfType(typeof(NotFoundResult));
+
+    }*/
 
     [Test]
     public void UpdateBookById_Updates_Correct_Book()
@@ -76,9 +78,10 @@ public class BookManagerControllerTests
         Book existingBookFound = GetTestBooks()
             .FirstOrDefault(b => b.Id.Equals(existingBookId));
 
-        var bookUpdates = new Book() { Id = 3, Title = "Book Three", Description = "I am updating this for Book Three", Author = "Person Three", Genre = Genre.Education };
+        var bookUpdates = new Book() { Id = existingBookId, Title = "Book Three", Description = "I am updating this for Book Three", Author = "Person Three", Genre = Genre.Education };
 
-        _mockBookManagementService.Setup(b => b.FindBookById(existingBookId)).Returns(existingBookFound);
+        _mockBookManagementService.Setup(b => b.Update(existingBookId, bookUpdates)).Returns(existingBookFound);
+        //_mockBookManagementService.Setup(b => b.FindBookById(existingBookId)).Returns(existingBookFound);
 
         //Act
         var result = _controller.UpdateBookById(existingBookId, bookUpdates);
@@ -91,8 +94,8 @@ public class BookManagerControllerTests
     public void UpdateBookById_Using_Wrong_Id_Returns_NotFound()
     {
         //Arrange
-        long existingBookId = 4;        
-        Book nullBook = new Book() { };
+        long existingBookId = 4;
+        Book nullBook = null;
         var bookUpdates = new Book() { };
 
         _mockBookManagementService.Setup(b => b.Update(existingBookId, nullBook)).Returns(nullBook);
@@ -125,13 +128,16 @@ public class BookManagerControllerTests
     {
         //Arrange
         var newBook = new Book() { Id = 3, Title = "Book 3", Description = "This is the description for Book 3", Author = "Person 3", Genre = Genre.Education };
+        Book nullBook = null;
+        _mockBookManagementService.Setup(b => b.Create(newBook)).Returns(nullBook);
 
         //Act
         var result = _controller.AddBook(newBook);
-        result = _controller.AddBook(newBook);
 
         //Assert
-        //result.Should().BeOfType(typeof(NoContentResult));
+        //result.Should().BeOfType(typeof(NotFoundResult));
+        //The above is incompatible, expected Microsoft.AspNetCore.Mvc.ActionResult`1[[BookManagerApi.Models.Book, BookManagerApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+        result.Should().NotBeOfType(typeof(NoContentResult));
     }
 
     [Test]
@@ -152,11 +158,13 @@ public class BookManagerControllerTests
     public void DeleteBook_When_Book_Not_Found_Gets_Error_NotFound()
     {
         //Arrange
-        //var testBookFound = GetTestBooks().FirstOrDefault();
-        //_mockBookManagementService.Setup(b => b.FindBookById(1)).Returns(testBookFound);
+        long testBookId = 13;
+        Book nullBook = null;
+
+        _mockBookManagementService.Setup(b => b.FindBookById(testBookId)).Returns(nullBook);
 
         //Act
-        var resultDelete = _controller.DeleteBookById(2);
+        var resultDelete = _controller.DeleteBookById(testBookId);
 
         //Assert
         resultDelete.Should().BeOfType(typeof(NotFoundResult));

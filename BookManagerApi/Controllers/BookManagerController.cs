@@ -82,7 +82,7 @@ namespace BookManagerApi.Controllers
         {
             var book = _bookManagementService.FindBookById(id);
 
-            if (book != null)
+            if (_bookManagementService.FindBookById(id) != null)
             {
                 _bookManagementService.Delete(book);
                 return NoContent();
