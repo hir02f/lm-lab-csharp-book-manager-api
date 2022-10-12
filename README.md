@@ -28,7 +28,7 @@ This is the developed version, where the assignment is to add User Story 5, dele
 
 `dotnet test`
 
-### Original Version
+### Original (Starter) Version
 
 The features are:
 - Get All Books
@@ -38,19 +38,21 @@ The features are:
 
 ### This Version
 
-📘 Task 1: Implement the following User Story with tests.
+📘 Task 1: Implemented the following User Story with tests.
 
 `User Story: As a user, I want to use the Book Manager API to delete a book using its ID`
 
 
 📘 Extension Task: Added error handling when:
 
-- Find a book using an ID that doesn't yet exist. 
+```- Find a book using an ID that doesn't yet exist. 
 - Delete a book using an ID that doesn't exist.
 - Update an book using an ID that doesn't exist.
+- Adding a book with an ID for a book that already exists.
 
 Still to do:
-- Adding a book with an ID for a book that already exists.
-- Adding a book for a genre that is not the following:  Thriller, Romance, Fantasy, Fiction, Education,
+- Adding a book for a genre that is not the following:  Thriller, Romance, Fantasy, Fiction, Education
+- Probaby better handling of error codes for all the above, rather than returning 404 for all, once my knowledge of Microsoft.AspNetCore.Mvc.ActionResult improves...`
+
 
   
