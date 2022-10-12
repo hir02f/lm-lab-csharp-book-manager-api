@@ -53,7 +53,7 @@ public class BookManagerControllerTests
         result.Should().BeOfType(typeof(ActionResult<Book>));
         result.Value.Should().Be(testBookFound);
     }
-    /*
+    
     [Test]
     public void GetBookById_Wrong_Id_Returns_NotFound()
     {
@@ -66,9 +66,8 @@ public class BookManagerControllerTests
         var result = _controller.GetBookById(1);
 
         //Assert
-        result.Should().BeOfType(typeof(NotFoundResult));
-
-    }*/
+        result.Should().NotBeOfType(typeof(NoContentResult));
+    }
 
     [Test]
     public void UpdateBookById_Updates_Correct_Book()
