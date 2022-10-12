@@ -19,9 +19,16 @@ namespace BookManagerApi.Services
 
         public Book Create(Book book)
         {
-            _context.Add(book);
-            _context.SaveChanges();
-            return book;
+            try
+            {
+                _context.Add(book);
+                _context.SaveChanges();
+                return book;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
         }
 
         public Book Update(long id, Book book)

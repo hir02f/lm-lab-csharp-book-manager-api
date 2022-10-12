@@ -49,8 +49,14 @@ namespace BookManagerApi.Controllers
             }
             else
             {
-                _bookManagementService.Update(id, book);
-                return NoContent();
+                if (_bookManagementService.Update(id, book) == null)
+                {
+                    return new NotFoundResult();
+                }
+                else
+                {
+                    return NoContent();
+                }
             }
         }
 
@@ -59,8 +65,15 @@ namespace BookManagerApi.Controllers
         [HttpPost]
         public ActionResult<Book> AddBook(Book book)
         {
-            _bookManagementService.Create(book);
-            return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
+            if (_bookManagementService.Create(book) != null)
+            {
+                return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
+            }
+            else
+            {
+                //return new Results().ValidationProblem();
+                return new NotFoundResult();
+            }
         }
 
         // DELETE: api/v1/book/5
